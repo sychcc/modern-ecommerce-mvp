@@ -1,0 +1,54 @@
+/* ===== THEME COLORS ===== */
+
+// Primary theme
+.theme-primary {
+  background-color: $color-blue;
+  color: $color-white;
+}
+
+.text-primary {
+  color: $color-blue;
+}
+
+.bg-primary {
+  background-color: $color-blue;
+}
+
+// Secondary theme
+.text-secondary {
+  color: $color-grey;
+}
+
+.bg-secondary {
+  background-color: $color-light-grey;
+}
+
+// Neutral theme
+.bg-white {
+  background-color: $color-white;
+}
+
+.bg-light {
+  background-color: $color-light-grey;
+}
+
+.bg-lightest {
+  background-color: $color-lightest-grey;
+}
+
+/* ===== COMMON EFFECTS ===== */
+.shadow-light {
+  box-shadow: $shadow-light;
+}
+
+.shadow-medium {
+  box-shadow: $shadow-medium;
+}
+
+.transition-fast {
+  transition: all $transition-fast;
+}
+
+.transition-normal {
+  transition: all $transition-normal;
+}

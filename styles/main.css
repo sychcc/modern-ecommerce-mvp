@@ -1,0 +1,357 @@
+@charset "UTF-8";
+/* ===== COLOR VARIABLES ===== */
+/* ===== TYPOGRAPHY VARIABLES ===== */
+/* ===== SPACING VARIABLES ===== */
+/* ===== BREAKPOINTS ===== */
+/* ===== EFFECTS ===== */
+/* ===== Z-INDEX SCALE ===== */
+/* ===== CSS RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== TYPOGRAPHY SYSTEM ===== */
+body {
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #171717;
+  line-height: 1.6;
+}
+
+/* ===== FONT FAMILIES ===== */
+.font-primary {
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.font-brand {
+  font-family: "Inter", sans-serif;
+}
+
+/* ===== FONT SIZES ===== */
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+/* ===== FONT WEIGHTS ===== */
+.font-normal {
+  font-weight: 400;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* ===== THEME COLORS ===== */
+.theme-primary {
+  background-color: #4338ca;
+  color: #ffffff;
+}
+
+.text-primary {
+  color: #4338ca;
+}
+
+.bg-primary {
+  background-color: #4338ca;
+}
+
+.text-secondary {
+  color: #525252;
+}
+
+.bg-secondary {
+  background-color: #f9fafb;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-light {
+  background-color: #f9fafb;
+}
+
+.bg-lightest {
+  background-color: #edf0f3;
+}
+
+/* ===== COMMON EFFECTS ===== */
+.shadow-light {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-medium {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.transition-fast {
+  transition: all 0.2s ease;
+}
+
+.transition-normal {
+  transition: all 0.3s ease;
+}
+
+/* ===== NAVBAR COMPONENT ===== */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #edf0f3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+}
+.navbar .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== LOGO ===== */
+.logo {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #4338ca;
+}
+
+/* ===== DESKTOP NAVIGATION ===== */
+.nav-menu ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+.nav-menu li {
+  position: relative;
+}
+.nav-menu a {
+  display: block;
+  color: #525252;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.nav-menu a:hover {
+  color: #171717;
+}
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background-color: #4338ca;
+  transition: width 0.3s ease;
+}
+.nav-menu a:hover::after {
+  width: 100%;
+}
+
+/* ===== NAVIGATION ACTIONS ===== */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  /* 漢堡按鈕 */
+}
+.nav-actions .mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  order: -1; /* 放到最前面 */
+}
+.nav-actions .mobile-menu-btn .hamburger-line {
+  width: 100%;
+  height: 3px;
+  background-color: #525252;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* ===== CART STYLES ===== */
+.cart-container {
+  position: relative;
+}
+.cart-container .cart-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.cart-container .cart-btn svg {
+  fill: #525252;
+  transition: fill 0.3s ease;
+}
+.cart-container .cart-btn:hover svg {
+  fill: #171717;
+}
+
+/* ===== USER AVATAR ===== */
+.nav-actions button:not(.mobile-menu-btn):not(.cart-btn) {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.nav-actions button:not(.mobile-menu-btn):not(.cart-btn) img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.nav-actions button:not(.mobile-menu-btn):not(.cart-btn) img:hover {
+  border-color: #4338ca;
+}
+
+/* ===== MOBILE NAVIGATION ===== */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+.mobile-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: #ffffff;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1001;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+.mobile-nav.show {
+  transform: translateX(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #edf0f3;
+}
+
+.mobile-nav-logo {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #4338ca;
+}
+
+.mobile-nav-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.mobile-nav-menu {
+  list-style: none;
+  margin: 0;
+  padding: 1.5rem 0;
+}
+.mobile-nav-menu li {
+  margin: 0;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 1rem 1.5rem;
+  color: #171717;
+  font-size: 1.125rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+.mobile-nav-link:hover {
+  background-color: #f9fafb;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 767px) {
+  .nav-actions .mobile-menu-btn {
+    display: flex !important;
+  }
+  .nav-menu {
+    display: none !important;
+  }
+  .navbar .container {
+    padding: 1rem;
+  }
+  .nav-actions {
+    gap: 1rem;
+  }
+}
+@media (min-width: 768px) {
+  .mobile-overlay,
+  .mobile-nav {
+    display: none !important;
+  }
+}/*# sourceMappingURL=main.css.map */

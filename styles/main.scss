@@ -1,0 +1,13 @@
+// ===== IMPORT BASE STYLES =====
+@import "base/variables";
+@import "base/reset";
+@import "base/typography";
+@import "base/theme";
+
+// ===== IMPORT COMPONENTS =====
+@import "components/navbar";
+
+// ===== FUTURE COMPONENTS =====
+// @import 'components/product-grid';
+// @import 'components/cart';
+// @import 'components/footer';
