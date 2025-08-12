@@ -15,204 +15,177 @@
     <link rel="icon" href="/assets/images/favicon.svg" />
     <!--CSS-->
     <link rel="stylesheet" href="../../styles/main.css" />
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <div class="product-grid-container">
-      <!-- 標題 -->
-      <h2 class="product-grid-title">Latest Arrivals</h2>
+    <!-- React 會渲染到這個div裡 -->
+    <div id="root"></div>
 
-      <!-- 商品網格 -->
-      <div class="product-grid">
-        <!-- 商品 1 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/urban_hat.png"
-              alt="Urban Drift Bucket Hat"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Black</div>
-            <h3 class="product-card__name">Urban Drift Bucket Hat</h3>
-            <div class="product-card__price">
-              <span class="price-current">$15</span>
-            </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="black"
-              ></button>
-              <button class="color-swatch" data-color="white"></button>
-            </div>
-          </div>
-        </article>
+    <!-- React 組件代碼 -->
+    <script type="text/babel">
+      // ProductCard 組件
+      const ProductCard = ({ product }) => {
+        const colors = product?.colors || [];
+        const [selectedColor, setSelectedColor] = React.useState(
+          colors[0] || null
+        );
 
-        <!-- 商品 2 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/mini_tote.png"
-              alt="Tangerine Mini Tote"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Orange</div>
-            <h3 class="product-card__name">Tangerine Mini Tote</h3>
-            <div class="product-card__price">
-              <span class="price-current">$150</span>
-            </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="orange"
-              ></button>
-            </div>
-          </div>
-        </article>
+        const handleColorChange = (color) => {
+          setSelectedColor(color);
+        };
 
-        <!-- 商品 3 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/sneakers.png"
-              alt="Elemental Sneakers"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Beige</div>
-            <h3 class="product-card__name">Elemental Sneakers</h3>
-            <div class="product-card__price">
-              <span class="price-current">$80</span>
-              <span class="price-original">$100</span>
-            </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="beige"
-              ></button>
-            </div>
-          </div>
-        </article>
+        const getColorDisplayName = (color) => {
+          if (!color) return "";
+          return color.charAt(0).toUpperCase() + color.slice(1);
+        };
 
-        <!-- 商品 4 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/voyager.png"
-              alt="Metro Hoodie"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Black</div>
-            <h3 class="product-card__name">Metro Hoodie</h3>
-            <div class="product-card__price">
-              <span class="price-current">$81</span>
-              <span class="price-original">$90</span>
-            </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="black"
-              ></button>
-            </div>
-          </div>
-        </article>
+        if (!product) return null;
 
-        <!-- 商品 5 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/heels.png"
-              alt="Sunbeam Mules"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Yellow</div>
-            <h3 class="product-card__name">Sunbeam Mules</h3>
-            <div class="product-card__price">
-              <span class="price-current">$68</span>
-              <span class="price-original">$85</span>
+        return (
+          <article className="product-card">
+            <div className="product-card__image">
+              <img
+                src={product.image || ""}
+                alt={product.name || "Product"}
+                onError={(e) => {
+                  e.target.src =
+                    "https://via.placeholder.com/300x300?text=No+Image";
+                }}
+              />
             </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="yellow"
-              ></button>
-            </div>
-          </div>
-        </article>
 
-        <!-- 商品 6 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/attitude_shades.png"
-              alt="Azure Attitude Shades"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Blue</div>
-            <h3 class="product-card__name">Azure Attitude Shades</h3>
-            <div class="product-card__price">
-              <span class="price-current">$45</span>
-            </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="blue"
-              ></button>
-            </div>
-          </div>
-        </article>
+            <div className="product-card__content">
+              {selectedColor && (
+                <div className="product-card__color-label">
+                  {getColorDisplayName(selectedColor)}
+                </div>
+              )}
 
-        <!-- 商品 7 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/voyager.png"
-              alt="Voyager Hoodie"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Green</div>
-            <h3 class="product-card__name">Voyager Hoodie</h3>
-            <div class="product-card__price">
-              <span class="price-current">$76</span>
-              <span class="price-original">$95</span>
-            </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="green"
-              ></button>
-              <button class="color-swatch" data-color="brown"></button>
-            </div>
-          </div>
-        </article>
+              <h3 className="product-card__name">
+                {product.name || "Unknown Product"}
+              </h3>
 
-        <!-- 商品 8 -->
-        <article class="product-card">
-          <div class="product-card__image">
-            <img
-              src="/assets/images/product_pic/baseball_hat.png"
-              alt="LA Baseball Hat"
-            />
-          </div>
-          <div class="product-card__content">
-            <div class="product-card__color-label">Black</div>
-            <h3 class="product-card__name">LA Baseball Hat</h3>
-            <div class="product-card__price">
-              <span class="price-current">$20</span>
+              <div className="product-card__price">
+                <span className="price-current">${product.price || 0}</span>
+                {product.originalPrice && (
+                  <span className="price-original">
+                    ${product.originalPrice}
+                  </span>
+                )}
+              </div>
+
+              {colors.length > 0 && (
+                <div className="product-card__colors">
+                  {colors.map((color, index) => (
+                    <button
+                      key={index}
+                      className={`color-swatch ${
+                        selectedColor === color ? "color-swatch--selected" : ""
+                      }`}
+                      data-color={color}
+                      onClick={() => handleColorChange(color)}
+                      title={getColorDisplayName(color)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-            <div class="product-card__colors">
-              <button
-                class="color-swatch color-swatch--selected"
-                data-color="black"
-              ></button>
+          </article>
+        );
+      };
+
+      // ProductGrid 組件
+      const ProductGrid = () => {
+        const products = [
+          {
+            id: "urban-drift-bucket-hat",
+            name: "Urban Drift Bucket Hat",
+            price: 15,
+            originalPrice: null,
+            image: "/assets/images/product_pic/urban_hat.png",
+            colors: ["black", "white"],
+          },
+          {
+            id: "tangerine-mini-tote",
+            name: "Tangerine Mini Tote",
+            price: 150,
+            originalPrice: null,
+            image: "/assets/images/product_pic/mini_tote.png",
+            colors: ["orange"],
+          },
+          {
+            id: "elemental-sneakers",
+            name: "Elemental Sneakers",
+            price: 80,
+            originalPrice: 100,
+            image: "/assets/images/product_pic/sneakers.png",
+            colors: ["beige"],
+          },
+          {
+            id: "metro-hoodie",
+            name: "Metro Hoodie",
+            price: 81,
+            originalPrice: 90,
+            image: "/assets/images/product_pic/voyager.png",
+            colors: ["black"],
+          },
+          {
+            id: "sunbeam-mules",
+            name: "Sunbeam Mules",
+            price: 68,
+            originalPrice: 85,
+            image: "/assets/images/product_pic/heels.png",
+            colors: ["yellow"],
+          },
+          {
+            id: "azure-attitude-shades",
+            name: "Azure Attitude Shades",
+            price: 45,
+            originalPrice: null,
+            image: "/assets/images/product_pic/attitude_shades.png",
+            colors: ["blue"],
+          },
+          {
+            id: "voyager-hoodie",
+            name: "Voyager Hoodie",
+            price: 76,
+            originalPrice: 95,
+            image: "/assets/images/product_pic/voyager.png",
+            colors: ["green", "brown"],
+          },
+          {
+            id: "la-baseball-hat",
+            name: "LA Baseball Hat",
+            price: 20,
+            originalPrice: null,
+            image: "/assets/images/product_pic/baseball_hat.png",
+            colors: ["black"],
+          },
+        ];
+
+        return (
+          <div className="product-grid-container">
+            <h2 className="product-grid-title">Latest Arrivals</h2>
+            <div className="product-grid">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
             </div>
           </div>
-        </article>
-      </div>
-    </div>
+        );
+      };
+
+      // 渲染到頁面
+      ReactDOM.render(<ProductGrid />, document.getElementById("root"));
+    </script>
   </body>
 </html>
