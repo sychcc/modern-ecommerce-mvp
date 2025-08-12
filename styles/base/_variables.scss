@@ -43,3 +43,16 @@ $border-radius: 0.5rem;
 $z-index-overlay: 1000;
 $z-index-modal: 1001;
 $z-index-tooltip: 1002;
+
+/* === PRODUCT SPECIFIC COLORS ===*/
+
+$color-beige: #f5f5dc;
+$color-yellow: #ffd700;
+$color-orange: #ff6b35;
+$color-purple: #8b5cf6;
+$color-pink: #ec4899;
+$color-brown: #8b4513;
+
+// === 狀態顏色 (如果專案沒有的話) ===
+$color-error: #ef4444; // 錯誤/缺貨
+$color-success: #10b981; // 成功

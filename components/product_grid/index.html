@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product card</title>
+
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/assets/images/favicon.svg" />
+    <!--CSS-->
+    <link rel="stylesheet" href="../../styles/main.css" />
+  </head>
+  <body>
+    <div class="product-grid-container">
+      <!-- 標題 -->
+      <h2 class="product-grid-title">Latest Arrivals</h2>
+
+      <!-- 商品網格 -->
+      <div class="product-grid">
+        <!-- 商品 1 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/urban_hat.png"
+              alt="Urban Drift Bucket Hat"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Black</div>
+            <h3 class="product-card__name">Urban Drift Bucket Hat</h3>
+            <div class="product-card__price">
+              <span class="price-current">$15</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="black"
+              ></button>
+              <button class="color-swatch" data-color="white"></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 2 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/mini_tote.png"
+              alt="Tangerine Mini Tote"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Orange</div>
+            <h3 class="product-card__name">Tangerine Mini Tote</h3>
+            <div class="product-card__price">
+              <span class="price-current">$150</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="orange"
+              ></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 3 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/sneakers.png"
+              alt="Elemental Sneakers"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Beige</div>
+            <h3 class="product-card__name">Elemental Sneakers</h3>
+            <div class="product-card__price">
+              <span class="price-current">$80</span>
+              <span class="price-original">$100</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="beige"
+              ></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 4 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/voyager.png"
+              alt="Metro Hoodie"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Black</div>
+            <h3 class="product-card__name">Metro Hoodie</h3>
+            <div class="product-card__price">
+              <span class="price-current">$81</span>
+              <span class="price-original">$90</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="black"
+              ></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 5 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/heels.png"
+              alt="Sunbeam Mules"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Yellow</div>
+            <h3 class="product-card__name">Sunbeam Mules</h3>
+            <div class="product-card__price">
+              <span class="price-current">$68</span>
+              <span class="price-original">$85</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="yellow"
+              ></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 6 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/attitude_shades.png"
+              alt="Azure Attitude Shades"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Blue</div>
+            <h3 class="product-card__name">Azure Attitude Shades</h3>
+            <div class="product-card__price">
+              <span class="price-current">$45</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="blue"
+              ></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 7 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/voyager.png"
+              alt="Voyager Hoodie"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Green</div>
+            <h3 class="product-card__name">Voyager Hoodie</h3>
+            <div class="product-card__price">
+              <span class="price-current">$76</span>
+              <span class="price-original">$95</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="green"
+              ></button>
+              <button class="color-swatch" data-color="brown"></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 8 -->
+        <article class="product-card">
+          <div class="product-card__image">
+            <img
+              src="/assets/images/product_pic/baseball_hat.png"
+              alt="LA Baseball Hat"
+            />
+          </div>
+          <div class="product-card__content">
+            <div class="product-card__color-label">Black</div>
+            <h3 class="product-card__name">LA Baseball Hat</h3>
+            <div class="product-card__price">
+              <span class="price-current">$20</span>
+            </div>
+            <div class="product-card__colors">
+              <button
+                class="color-swatch color-swatch--selected"
+                data-color="black"
+              ></button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </body>
+</html>
