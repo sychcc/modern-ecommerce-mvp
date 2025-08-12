@@ -97,9 +97,9 @@ const Footer = () => {
       <div className="footer-container">
         {/* Newsletter Section */}
         <section className="newsletter-section">
-          <h2 className="newsletter-title">Join our newsletter</h2>
+          <h2 className="newsletter-title">加入我們的電子報</h2>
           <p className="newsletter-description">
-            We'll send you a nice letter once per week. No spam.
+            We'll send you a nice letter once per week：）
           </p>
 
           <form className="newsletter-form" onSubmit={handleSubmit}>

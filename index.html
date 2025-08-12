@@ -3,10 +3,612 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>E-commerce MVP Project</title>
+    <link rel="icon" href="/assets/images/favicon.svg" />
     <link rel="stylesheet" href="./styles/main.css" />
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <script src="assets/js/main.js"></script>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // Context for cart state management
+      const CartContext = React.createContext();
+
+      // Cart Provider
+      const CartProvider = ({ children }) => {
+        const [cartItems, setCartItems] = React.useState([]);
+        const [showCartNotification, setShowCartNotification] =
+          React.useState(false);
+
+        const addToCart = (product, selectedColor) => {
+          const itemId = `${product.id}-${selectedColor}`;
+          const existingItem = cartItems.find((item) => item.id === itemId);
+
+          if (existingItem) {
+            setCartItems(
+              cartItems.map((item) =>
+                item.id === itemId
+                  ? { ...item, quantity: item.quantity + 1 }
+                  : item
+              )
+            );
+          } else {
+            setCartItems([
+              ...cartItems,
+              {
+                id: itemId,
+                productId: product.id,
+                name: product.name,
+                price: product.price,
+                color: selectedColor,
+                quantity: 1,
+                image: product.image,
+              },
+            ]);
+          }
+
+          // Show cart notification
+          setShowCartNotification(true);
+          setTimeout(() => setShowCartNotification(false), 3000);
+        };
+
+        const getTotalItems = () => {
+          return cartItems.reduce((total, item) => total + item.quantity, 0);
+        };
+
+        return (
+          <CartContext.Provider value={{ cartItems, addToCart, getTotalItems }}>
+            {children}
+          </CartContext.Provider>
+        );
+      };
+
+      // Navbar Component
+      const Navbar = () => {
+        const { getTotalItems } = React.useContext(CartContext);
+        const totalItems = getTotalItems();
+        const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+        const toggleMobileMenu = () => {
+          setIsMobileMenuOpen(!isMobileMenuOpen);
+        };
+
+        const closeMobileMenu = () => {
+          setIsMobileMenuOpen(false);
+        };
+
+        return (
+          <>
+            {/* Main Navbar */}
+            <nav className="navbar">
+              <div className="container">
+                {/* 左側logo */}
+                <div className="logo">Code & Speak</div>
+
+                {/* 中間導航選單 */}
+                <div className="nav-menu">
+                  <ul>
+                    <li className="nav-item">
+                      <a href="#">Shop All</a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#">Women</a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#">Men</a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#">Kids</a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#">Pets</a>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* 右側功能區 */}
+                <div className="nav-actions">
+                  {/* 購物車 */}
+                  <div className="cart-container">
+                    <button className="cart-btn">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.50488 2H17.5049C17.8196 2 18.116 2.14819 18.3049 2.4L21.0049 6V21C21.0049 21.5523 20.5572 22 20.0049 22H4.00488C3.4526 22 3.00488 21.5523 3.00488 21V6L5.70488 2.4C5.89374 2.14819 6.19013 2 6.50488 2ZM19.0049 8H5.00488V20H19.0049V8ZM18.5049 6L17.0049 4H7.00488L5.50488 6H18.5049ZM9.00488 10V12C9.00488 13.6569 10.348 15 12.0049 15C13.6617 15 15.0049 13.6569 15.0049 12V10H17.0049V12C17.0049 14.7614 14.7663 17 12.0049 17C9.24346 17 7.00488 14.7614 7.00488 12V10H9.00488Z"
+                          fill="#525252"
+                        />
+                      </svg>
+                      <span
+                        className="cart-count"
+                        style={{ display: totalItems > 0 ? "block" : "none" }}
+                      >
+                        {totalItems}
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* 用戶頭貼 */}
+                  <button>
+                    <img
+                      src="/assets/images/user_avatar.png"
+                      alt="user avatar"
+                      onError={(e) => {
+                        e.target.src =
+                          "https://via.placeholder.com/40x40?text=👤";
+                      }}
+                    />
+                  </button>
+
+                  {/* 手機版漢堡選單 */}
+                  <button
+                    className="mobile-menu-btn"
+                    onClick={toggleMobileMenu}
+                  >
+                    <span className="hamburger-line"></span>
+                    <span className="hamburger-line"></span>
+                    <span className="hamburger-line"></span>
+                  </button>
+                </div>
+              </div>
+            </nav>
+
+            {/* 手機版遮罩 */}
+            <div
+              className={`mobile-overlay ${isMobileMenuOpen ? "active" : ""}`}
+              onClick={closeMobileMenu}
+            ></div>
+
+            {/* 手機版側邊選單 */}
+            <nav className={`mobile-nav ${isMobileMenuOpen ? "active" : ""}`}>
+              <div className="mobile-nav-header">
+                <div className="mobile-nav-logo">Code & Speak</div>
+                <button className="mobile-nav-close" onClick={closeMobileMenu}>
+                  ×
+                </button>
+              </div>
+              <ul className="mobile-nav-menu">
+                <li>
+                  <a
+                    href="#"
+                    className="mobile-nav-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Shop All
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="mobile-nav-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Women
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="mobile-nav-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Men
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="mobile-nav-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Kids
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="mobile-nav-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Pets
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </>
+        );
+      };
+
+      // ProductCard Component
+      const ProductCard = ({ product }) => {
+        const { addToCart } = React.useContext(CartContext);
+        const colors = product?.colors || [];
+        const [selectedColor, setSelectedColor] = React.useState(
+          colors[0] || null
+        );
+
+        const handleColorChange = (color) => {
+          setSelectedColor(color);
+        };
+
+        const handleAddToCart = () => {
+          addToCart(product, selectedColor);
+        };
+
+        const getColorDisplayName = (color) => {
+          if (!color) return "";
+          return color.charAt(0).toUpperCase() + color.slice(1);
+        };
+
+        if (!product) return null;
+
+        return (
+          <article className="product-card">
+            <div className="product-card__image">
+              <img
+                src={product.image || ""}
+                alt={product.name || "Product"}
+                onError={(e) => {
+                  e.target.src =
+                    "https://via.placeholder.com/300x300?text=No+Image";
+                }}
+              />
+
+              {/* Add to Cart Overlay */}
+              <div className="add-to-cart-overlay">
+                <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <div className="product-card__content">
+              {selectedColor && (
+                <div className="product-card__color-label">
+                  {getColorDisplayName(selectedColor)}
+                </div>
+              )}
+
+              <h3 className="product-card__name">
+                {product.name || "Unknown Product"}
+              </h3>
+
+              <div className="product-card__price">
+                <span className="price-current">${product.price || 0}</span>
+                {product.originalPrice && (
+                  <span className="price-original">
+                    ${product.originalPrice}
+                  </span>
+                )}
+              </div>
+
+              {colors.length > 0 && (
+                <div className="product-card__colors">
+                  {colors.map((color, index) => (
+                    <button
+                      key={index}
+                      className={`color-swatch ${
+                        selectedColor === color ? "color-swatch--selected" : ""
+                      }`}
+                      data-color={color}
+                      onClick={() => handleColorChange(color)}
+                      title={getColorDisplayName(color)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </article>
+        );
+      };
+
+      // ProductGrid Component
+      const ProductGrid = () => {
+        const products = [
+          {
+            id: "urban-drift-bucket-hat",
+            name: "Urban Drift Bucket Hat",
+            price: 15,
+            originalPrice: null,
+            image: "/assets/images/product_pic/urban_hat.png",
+            colors: ["black", "white"],
+          },
+          {
+            id: "tangerine-mini-tote",
+            name: "Tangerine Mini Tote",
+            price: 150,
+            originalPrice: null,
+            image: "/assets/images/product_pic/mini_tote.png",
+            colors: ["orange"],
+          },
+          {
+            id: "elemental-sneakers",
+            name: "Elemental Sneakers",
+            price: 80,
+            originalPrice: 100,
+            image: "/assets/images/product_pic/sneakers.png",
+            colors: ["beige"],
+          },
+          {
+            id: "metro-hoodie",
+            name: "Metro Hoodie",
+            price: 81,
+            originalPrice: 90,
+            image: "/assets/images/product_pic/voyager.png",
+            colors: ["black"],
+          },
+          {
+            id: "sunbeam-mules",
+            name: "Sunbeam Mules",
+            price: 68,
+            originalPrice: 85,
+            image: "/assets/images/product_pic/heels.png",
+            colors: ["yellow"],
+          },
+          {
+            id: "azure-attitude-shades",
+            name: "Azure Attitude Shades",
+            price: 45,
+            originalPrice: null,
+            image: "/assets/images/product_pic/attitude_shades.png",
+            colors: ["blue"],
+          },
+          {
+            id: "voyager-hoodie",
+            name: "Voyager Hoodie",
+            price: 76,
+            originalPrice: 95,
+            image: "/assets/images/product_pic/voyager.png",
+            colors: ["green", "brown"],
+          },
+          {
+            id: "la-baseball-hat",
+            name: "LA Baseball Hat",
+            price: 20,
+            originalPrice: null,
+            image: "/assets/images/product_pic/baseball_hat.png",
+            colors: ["black"],
+          },
+        ];
+
+        return (
+          <div className="product-grid-container">
+            <h2 className="product-grid-title">Latest Arrivals</h2>
+            <div className="product-grid">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        );
+      };
+
+      // Footer Component
+      const Footer = () => {
+        const [email, setEmail] = React.useState("");
+        const [notification, setNotification] = React.useState({
+          show: false,
+          type: "",
+          message: "",
+        });
+        const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+        const validateEmail = (email) => {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        };
+
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+
+          if (!email.trim()) {
+            setNotification({
+              show: true,
+              type: "error",
+              message: "Email address is required.",
+            });
+            return;
+          }
+
+          if (!validateEmail(email)) {
+            setNotification({
+              show: true,
+              type: "error",
+              message: "Please enter a valid email address.",
+            });
+            return;
+          }
+
+          setIsSubmitting(true);
+
+          // Simulate API call
+          setTimeout(() => {
+            setNotification({
+              show: true,
+              type: "success",
+              message: "Subscription successful!訂閱成功！",
+            });
+            setEmail("");
+            setIsSubmitting(false);
+
+            // 5秒之後隱藏通知
+            setTimeout(() => {
+              setNotification({ show: false, type: "", message: "" });
+            }, 5000);
+          }, 1000);
+        };
+
+        const categories = [
+          { name: "Women", href: "#" },
+          { name: "Men", href: "#" },
+          { name: "Kids", href: "#" },
+          { name: "Pets", href: "#" },
+        ];
+
+        const collections = [
+          { name: "Latest arrivals", href: "#" },
+          { name: "Urban Oasis", href: "#" },
+          { name: "Cozy Comfort", href: "#" },
+          { name: "Fresh Fusion", href: "#" },
+        ];
+
+        const socialLinks = [
+          {
+            name: "YouTube",
+            icon: "/assets/images/footer-icon/youtube.svg",
+            href: "#",
+          },
+          {
+            name: "Instagram",
+            icon: "/assets/images/footer-icon/ig.svg",
+            href: "#",
+          },
+          {
+            name: "Facebook",
+            icon: "/assets/images/footer-icon/fb.svg",
+            href: "#",
+          },
+          {
+            name: "GitHub",
+            icon: "/assets/images/footer-icon/github.svg",
+            href: "#",
+          },
+          { name: "X", icon: "/assets/images/footer-icon/x.svg", href: "#" },
+        ];
+
+        return (
+          <footer className="footer">
+            <div className="footer-container">
+              {/* Newsletter Section */}
+              <section className="newsletter-section">
+                <h2 className="newsletter-title">加入我們的電子報：）</h2>
+                <p className="newsletter-description">
+                  We'll send you a nice letter once per week.
+                </p>
+
+                <form className="newsletter-form" onSubmit={handleSubmit}>
+                  <input
+                    type="email"
+                    className={`newsletter-input ${
+                      notification.show && notification.type === "error"
+                        ? "error"
+                        : ""
+                    }`}
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubmitting}
+                  />
+                  <button
+                    type="submit"
+                    className="newsletter-button"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Subscribing..." : "Subscribe"}
+                  </button>
+                </form>
+
+                {/* Notification */}
+                {notification.show && (
+                  <div className={`notification ${notification.type}`}>
+                    {notification.message}
+                  </div>
+                )}
+              </section>
+
+              {/* Main Footer Content */}
+              <div className="footer-content">
+                {/* Brand Section */}
+                <div className="brand-section">
+                  <div className="brand-logo">
+                    <span className="brand-name">Code & Speak</span>
+                  </div>
+                  <p className="brand-tagline"></p>
+                </div>
+
+                {/* Shop Categories */}
+                <div className="footer-section">
+                  <h3 className="footer-section-title">Shop Categories</h3>
+                  <ul className="footer-links">
+                    {categories.map((category, index) => (
+                      <li key={index}>
+                        <a href={category.href}>{category.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Shop Collections */}
+                <div className="footer-section">
+                  <h3 className="footer-section-title">Shop Collections</h3>
+                  <ul className="footer-links">
+                    {collections.map((collection, index) => (
+                      <li key={index}>
+                        <a href={collection.href}>{collection.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Footer Bottom */}
+              <div className="footer-bottom">
+                <p className="footer-copyright">
+                  © 2025 Syrena Chung | All rights reserved.
+                </p>
+
+                <div className="social-icons">
+                  {socialLinks.map((social, index) => (
+                    <a key={index} href={social.href} className="social-icon">
+                      {typeof social.icon === "string" ? (
+                        <img src={social.icon} alt={social.name} />
+                      ) : (
+                        social.icon
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </footer>
+        );
+      };
+
+      // Main App Component
+      const App = () => {
+        return (
+          <CartProvider>
+            <Navbar />
+            <ProductGrid />
+            <Footer />
+          </CartProvider>
+        );
+      };
+
+      // Render 全部的application
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
   </body>
 </html>
