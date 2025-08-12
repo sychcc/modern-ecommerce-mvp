@@ -1,5 +1,9 @@
 # E-commerce Component System v2.0 電商組件系統
 
+## MVP v2.0 demo
+
+[(assets/images/v2.0_demo.jpg)]
+
 ## Project Overview
 
 A modern, modular e-commerce website built with component-based architecture and professional SASS styling system. Each component is developed independently with its own demo page, ensuring modularity, testability, and maintainability.
