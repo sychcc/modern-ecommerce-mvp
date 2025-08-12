@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Footer Component</title>
+
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <!-- Footer -->
+    <div id="footer-root"></div>
+
+    <script type="text/babel">
+      // Footer Component
+      const Footer = () => {
+        const [email, setEmail] = React.useState("");
+        const [notification, setNotification] = React.useState({
+          show: false,
+          type: "",
+          message: "",
+        });
+        const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+        const validateEmail = (email) => {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        };
+
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+
+          if (!email.trim()) {
+            setNotification({
+              show: true,
+              type: "error",
+              message: "Email address is required.",
+            });
+            return;
+          }
+
+          if (!validateEmail(email)) {
+            setNotification({
+              show: true,
+              type: "error",
+              message: "Please enter a valid email address.",
+            });
+            return;
+          }
+
+          setIsSubmitting(true);
+
+          // Simulate API call
+          setTimeout(() => {
+            setNotification({
+              show: true,
+              type: "success",
+              message: "Subscription successful!訂閱成功！",
+            });
+            setEmail("");
+            setIsSubmitting(false);
+
+            // ５秒之後隱藏通知
+            setTimeout(() => {
+              setNotification({ show: false, type: "", message: "" });
+            }, 5000);
+          }, 1000);
+        };
+
+        const categories = [
+          { name: "Women", href: "#" },
+          { name: "Men", href: "#" },
+          { name: "Kids", href: "#" },
+          { name: "Pets", href: "#" },
+        ];
+
+        const collections = [
+          { name: "Latest arrivals", href: "#" },
+          { name: "Urban Oasis", href: "#" },
+          { name: "Cozy Comfort", href: "#" },
+          { name: "Fresh Fusion", href: "#" },
+        ];
+
+        const socialLinks = [
+          {
+            name: "YouTube",
+            icon: "/assets/images/footer-icon/youtube.svg",
+            href: "#",
+          },
+          {
+            name: "Instagram",
+            icon: "/assets/images/footer-icon/ig.svg",
+            href: "#",
+          },
+          {
+            name: "Facebook",
+            icon: "/assets/images/footer-icon/fb.svg",
+            href: "#",
+          },
+          {
+            name: "GitHub",
+            icon: "/assets/images/footer-icon/github.svg",
+            href: "#",
+          },
+          { name: "X", icon: "/assets/images/footer-icon/x.svg", href: "#" },
+        ];
+
+        return (
+          <footer className="footer">
+            <div className="footer-container">
+              {/* Newsletter Section */}
+              <section className="newsletter-section">
+                <h2 className="newsletter-title">加入我們的電子報：）</h2>
+                <p className="newsletter-description">
+                  We'll send you a nice letter once per week.
+                </p>
+
+                <form className="newsletter-form" onSubmit={handleSubmit}>
+                  <input
+                    type="email"
+                    className={`newsletter-input ${
+                      notification.show && notification.type === "error"
+                        ? "error"
+                        : ""
+                    }`}
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubmitting}
+                  />
+                  <button
+                    type="submit"
+                    className="newsletter-button"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Subscribing..." : "Subscribe"}
+                  </button>
+                </form>
+
+                {/* Notification */}
+                {notification.show && (
+                  <div className={`notification ${notification.type}`}>
+                    {notification.message}
+                  </div>
+                )}
+              </section>
+
+              {/* Main Footer Content */}
+              <div className="footer-content">
+                {/* Brand Section */}
+                <div className="brand-section">
+                  <div className="brand-logo">
+                    <span className="brand-name">Code & Speak</span>
+                  </div>
+                  <p className="brand-tagline"></p>
+                </div>
+
+                {/* Shop Categories */}
+                <div className="footer-section">
+                  <h3 className="footer-section-title">Shop Categories</h3>
+                  <ul className="footer-links">
+                    {categories.map((category, index) => (
+                      <li key={index}>
+                        <a href={category.href}>{category.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Shop Collections */}
+                <div className="footer-section">
+                  <h3 className="footer-section-title">Shop Collections</h3>
+                  <ul className="footer-links">
+                    {collections.map((collection, index) => (
+                      <li key={index}>
+                        <a href={collection.href}>{collection.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Footer Bottom */}
+              <div className="footer-bottom">
+                <p className="footer-copyright">
+                  © 2025 Syrena Chung | All rights reserved.
+                </p>
+
+                <div className="social-icons">
+                  {socialLinks.map((social, index) => (
+                    <a href={social.href} className="social-icon">
+                      {typeof social.icon === "string" ? (
+                        <img src={social.icon} alt={social.name} />
+                      ) : (
+                        social.icon
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </footer>
+        );
+      };
+
+      ReactDOM.render(<Footer />, document.getElementById("footer-root"));
+    </script>
+  </body>
+</html>
